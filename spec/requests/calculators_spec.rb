@@ -68,6 +68,19 @@ RSpec.describe "Calculators", type: :request do
       end
     end
 
+    context "add new line between number" do
+      let(:string_number_params) { { string_numbers: "1\n2"} }
+      it "add new line between two number" do
+        post "/calculators", params: string_number_params
+        expect JSON(response.body)["response"] == 3
+      end
+
+      it "returns a success response" do
+        post "/calculators", params: string_number_params
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
     context "with negative parameters" do
       let(:string_number_params) { { string_numbers: "-1,-2"} }
 
