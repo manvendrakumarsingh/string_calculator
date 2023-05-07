@@ -27,6 +27,20 @@ RSpec.describe "Calculators", type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context "with negative parameters" do
+      let(:string_number_params) { { string_numbers: "-1,-2"} }
+
+      it "add negative number" do
+        post "/calculators", params: string_number_params
+        expect JSON(response.body)["status"] == false
+      end
+
+      it "returns an error response" do
+        post "/calculators", params: string_number_params
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
   end
 end
 

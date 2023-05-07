@@ -21,7 +21,7 @@ class CalculatorsController < ApplicationController
       if total > 0
         render json: { status: true , message: "Result successfully",response:  total}, status: :ok
       else
-        render json: { message: "negatives not allowed" }, status: :unprocessable_entity
+        render json: { status: false,message: "negatives not allowed" }, status: :unprocessable_entity
       end
     end
 end
