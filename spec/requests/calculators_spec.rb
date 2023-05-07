@@ -49,7 +49,8 @@ RSpec.describe "Calculators", type: :request do
       let(:string_number_params) { { string_numbers: " "} }
       it "add number" do
         post "/calculators", params: string_number_params
-        expect JSON(response.body)["response"] == 0
+        total =  JSON(response.body)["response"]
+        expect(total).to eq(0)
       end
 
       it "returns a success response" do
