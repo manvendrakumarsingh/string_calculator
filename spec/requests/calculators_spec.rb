@@ -29,6 +29,19 @@ RSpec.describe "Calculators", type: :request do
       end
     end
 
+    context "with valid multiple digit parameters" do
+      let(:string_number_params) { { string_numbers: "10,20"} }
+      it "add multiple digit number" do
+        post "/calculators", params: string_number_params
+        expect JSON(response.body)["response"] == 30
+      end
+
+      it "returns a success response" do
+        post "/calculators", params: string_number_params
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
     context "with blank parameters" do
       let(:string_number_params) { { string_numbers: " "} }
       it "add number" do
