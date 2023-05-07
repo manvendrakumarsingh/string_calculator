@@ -7,7 +7,8 @@ RSpec.describe "Calculators", type: :request do
       let(:string_number_params) { { string_numbers: "1"} }
       it "add number" do
         post "/calculators", params: string_number_params
-        expect JSON(response.body)["response"] == 1
+        total = JSON(response.body)["response"]
+        expect(total).to eq(1)
       end
 
       it "returns a success response" do
@@ -20,7 +21,8 @@ RSpec.describe "Calculators", type: :request do
       let(:string_number_params) { { string_numbers: "1,2"} }
       it "add number" do
         post "/calculators", params: string_number_params
-        expect JSON(response.body)["response"] == 3
+        total = JSON(response.body)["response"]
+        expect(total).to eq(3)
       end
 
       it "returns a success response" do
@@ -33,7 +35,8 @@ RSpec.describe "Calculators", type: :request do
       let(:string_number_params) { { string_numbers: "10,20"} }
       it "add multiple digit number" do
         post "/calculators", params: string_number_params
-        expect JSON(response.body)["response"] == 30
+        total = JSON(response.body)["response"]
+        expect(total).to eq(30)
       end
 
       it "returns a success response" do
@@ -59,7 +62,8 @@ RSpec.describe "Calculators", type: :request do
       let(:string_number_params) { { string_numbers: "\n"} }
       it "add new line" do
         post "/calculators", params: string_number_params
-        expect JSON(response.body)["response"] == 0
+        total = JSON(response.body)["response"]
+        expect(total).to eq(0)
       end
 
       it "returns a success response" do
@@ -72,7 +76,8 @@ RSpec.describe "Calculators", type: :request do
       let(:string_number_params) { { string_numbers: "1\n2"} }
       it "add new line between two number" do
         post "/calculators", params: string_number_params
-        expect JSON(response.body)["response"] == 3
+        total = JSON(response.body)["response"]
+        expect(total).to eq(3)
       end
 
       it "returns a success response" do
@@ -85,7 +90,8 @@ RSpec.describe "Calculators", type: :request do
       let(:string_number_params) { { string_numbers: "//;\n1;2"} }
       it "add multiple delimiter number" do
         post "/calculators", params: string_number_params
-        expect JSON(response.body)["response"] == 3
+        total = JSON(response.body)["response"]
+        expect(total).to eq(3)
       end
 
       it "returns a success response" do
