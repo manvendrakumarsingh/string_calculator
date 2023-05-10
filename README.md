@@ -5,20 +5,12 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+* Ruby version & Rails version
+  - ruby 3.0.0p0
+  - Rails 7.0.4.3
 
-* System dependencies
+* Install Dependency
+  - bundle install
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Run Test Case Particular File
+  - bundle exec rspec spec/requests/calculators_spec.rb
