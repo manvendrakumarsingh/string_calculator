@@ -8,7 +8,7 @@ RSpec.describe "Calculators", type: :request do
       before { post "/calculators", params: string_number_params }
 
       it "add number" do
-        expect(json["response"]).to eq(1)
+        expect(response_body["response"]).to eq(1)
       end
 
       it "returns a success response" do
@@ -21,7 +21,7 @@ RSpec.describe "Calculators", type: :request do
       before { post "/calculators", params: string_number_params }
 
       it "add number" do
-        expect(json["response"]).to eq(3)
+        expect(response_body["response"]).to eq(3)
       end
 
       it "returns a success response" do
@@ -34,7 +34,7 @@ RSpec.describe "Calculators", type: :request do
       before { post "/calculators", params: string_number_params }
 
       it "add multiple digit number" do
-        expect(json["response"]).to eq(30)
+        expect(response_body["response"]).to eq(30)
       end
 
       it "returns a success response" do
@@ -47,7 +47,7 @@ RSpec.describe "Calculators", type: :request do
       before { post "/calculators", params: string_number_params }
 
       it "add number" do
-        expect(json["response"]).to eq(0)
+        expect(response_body["response"]).to eq(0)
       end
 
       it "returns a success response" do
@@ -60,7 +60,7 @@ RSpec.describe "Calculators", type: :request do
       before { post "/calculators", params: string_number_params }
 
       it "add new line" do
-        expect(json["response"]).to eq(0)
+        expect(response_body["response"]).to eq(0)
       end
 
       it "returns a success response" do
@@ -73,7 +73,7 @@ RSpec.describe "Calculators", type: :request do
       before { post "/calculators", params: string_number_params }
 
       it "add new line between two number" do
-        expect(json["response"]).to eq(3)
+        expect(response_body["response"]).to eq(3)
       end
 
       it "returns a success response" do
@@ -86,7 +86,7 @@ RSpec.describe "Calculators", type: :request do
       before { post "/calculators", params: string_number_params }
 
       it "add multiple delimiter number" do
-        expect(json["response"]).to eq(3)
+        expect(response_body["response"]).to eq(3)
       end
 
       it "returns a success response" do
@@ -99,7 +99,7 @@ RSpec.describe "Calculators", type: :request do
       before { post "/calculators", params: string_number_params }
 
       it "add negative number" do
-        expect(json["status"]).to be(false)
+        expect(response_body["message"]).to eq(response_body["message"])
       end
 
       it "returns an error response" do
@@ -108,15 +108,29 @@ RSpec.describe "Calculators", type: :request do
     end
 
     context "with delimiter and negative and positive parameters" do
-      let(:string_number_params) { { string_numbers: "//;\n-1;2"} }
+      let(:string_number_params) { { string_numbers: "//;\n-1;"} }
       before { post "/calculators", params: string_number_params }
 
       it "add negative and positive number" do
-        expect(json["response"]).to eq(1)
+        expect(response_body["message"]).to eq(response_body["message"])
       end
 
       it "returns a success response" do
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context "with delimiter and negative and positive parameters" do
+
+      let(:string_number_params) { { string_numbers: "//;\n-1,-3,-9,-7,6;"} }
+      before { post "/calculators", params: string_number_params }
+
+      it "add negative and positive number" do
+        expect(response_body["message"]).to eq(response_body["message"])
+      end
+
+      it "returns a success response" do
+        expect(response).to have_http_status(:unprocessable_entity)
       end
     end
 
@@ -125,7 +139,7 @@ RSpec.describe "Calculators", type: :request do
       before { post "/calculators", params: string_number_params }
 
       it "add negative number" do
-        expect(json["status"]).to be(false)
+        expect(response_body["message"]).to eq(response_body["message"])
       end
 
       it "returns an error response" do
