@@ -19,7 +19,8 @@ class CalculatorsController < ApplicationController
       if total > 0
         json_response(true,total)
       else
-        json_response(false,'')
+        negative_number = params[:string_numbers].map{|n| n if n.to_i < 0}.compact.join(',')
+        json_response(false,negative_number)
       end
     end
 end
